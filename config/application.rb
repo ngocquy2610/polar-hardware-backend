@@ -2,6 +2,7 @@ require_relative "boot"
 
 require "rails"
 require "action_mailer/railtie"
+require "active_storage/engine"
 
 # Pick the frameworks you want:
 require "active_model/railtie"
