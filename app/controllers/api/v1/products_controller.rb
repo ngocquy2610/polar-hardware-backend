@@ -3,8 +3,12 @@ module Api
     class ProductsController < ApplicationController
       def index
         products = Product.all
+        brands = Brand.all
+        categories = Category.all
         render json: {
-          products: products
+          products: products,
+          brands: brands,
+          categories: categories
         }
       end
     end

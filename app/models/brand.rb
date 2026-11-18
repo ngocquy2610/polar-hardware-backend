@@ -4,4 +4,9 @@ class Brand < ApplicationRecord
 
   validates :name, presence: true
   validates :description, length: {maximum:200}
+
+  enum :status, {
+    active: "active",
+    inactive: "inactive"
+  }
 end
