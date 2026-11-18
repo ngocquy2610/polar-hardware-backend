@@ -1,7 +1,7 @@
 class CategoryAttribute < ApplicationRecord
   belongs_to :category
 
-  has_many :product_specifications
+  has_many :product_specifications, dependent: :destroy
 
   validates :name, presence: true
   validates :label, presence:true
