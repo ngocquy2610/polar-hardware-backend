@@ -50,6 +50,7 @@ Rails.application.configure do
     port: 3000
   }
 
+  config.active_storage.service = :local
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
