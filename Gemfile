@@ -42,6 +42,6 @@ end
 
 gem "devise"
 # gem "kaminari"
-# gem "pundit"
+gem "pundit"
 # gem "sidekiq"
 # gem "redis"
