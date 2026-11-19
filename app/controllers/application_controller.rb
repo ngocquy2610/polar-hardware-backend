@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::API
+  include Pundit::Authorization # embed Pundit to Controller
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  # Catch error when user not authorize
+
   before_action :configure_permitted_parameters,
                 if: :devise_controller?
 

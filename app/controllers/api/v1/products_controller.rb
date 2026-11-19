@@ -1,8 +1,11 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      before_action :authenticate_user!, except: [:index, :show]
       before_action :set_product, only: [:show, :update, :destroy]
       def index
+        authorize Product
+
         products = Product.all
         brands = Brand.all
         categories = Category.all
@@ -14,12 +17,16 @@ module Api
       end
 
       def show
+        authorize @product
+
         render json: {
           product: @product
         }
       end
 
       def create
+        authorize Product
+
         product = Product.new(product_params)
         if product.save
           # save is a function, call save, then model will send INSERT query to DB, check success
@@ -36,6 +43,8 @@ module Api
       end
 
       def update
+        authorize @product
+
         if @product.update(product_params)
           render json: {
             message: "Product updated successfully",
@@ -50,6 +59,8 @@ module Api
       end
 
       def destroy
+        authorize @product
+        
         if @product.destroy
           render json: {
             message: "Product destroyed successfully"
@@ -92,5 +103,3 @@ module Api
     end
   end
 end
-
-#test

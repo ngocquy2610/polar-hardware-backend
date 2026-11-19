@@ -70,3 +70,9 @@ erDiagram
 ```
 
 Each product belongs to one category and one brand. Categories define attributes, and product specifications associate a product with a category attribute. The `(category_id, name)` pair on `category_attributes` and `(product_id, category_attribute_id)` pair on `product_specifications` are unique.
+
+## C. Authorization
+
+setup gem file + bundle install
+
+bundle exec rails g pundit:install
