@@ -41,7 +41,7 @@ group :development do
 end
 
 gem "devise"
-# gem "kaminari"
+gem "kaminari"
 gem "pundit"
 # gem "sidekiq"
 # gem "redis"

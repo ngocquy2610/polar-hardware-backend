@@ -1,18 +1,22 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      include Paginatable
+
       before_action :authenticate_user!, except: [:index, :show]
       before_action :set_product, only: [:show, :update, :destroy]
+
       def index
         authorize Product
 
-        products = Product.all
-        brands = Brand.all
-        categories = Category.all
+        products = paginate(policy_scope(Product).includes(:brand, :category, :product_specification))
+        brands = policy_scope(Brand)
+        categories = policy_scope(Category)
         render json: {
           products: products,
           brands: brands,
-          categories: categories
+          categories: categories,
+          meta: pagination_meta(products)
         }
       end
 
@@ -60,7 +64,7 @@ module Api
 
       def destroy
         authorize @product
-        
+
         if @product.destroy
           render json: {
             message: "Product destroyed successfully"
@@ -76,7 +80,8 @@ module Api
       private
 
       def set_product
-        @product = Product.find_by(id: params[:id]) || Product.find_by(slug: params[:id])
+        @product = policy_scope(Product).find_by(id: params[:id]).includes(:brand, :category, :product_specification) ||
+                   policy_scope(Product).find_by(slug: params[:id]).includes(:brand, :category, :product_specification)
         if @product.nil?
           render json: {
             error: "Product not found"

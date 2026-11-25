@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace "v1" do
       get "pings", to: "pings#index" # api/v1/pings
       resources :products, only: [:index, :show, :create, :update, :destroy]
+      resources :brands, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end
