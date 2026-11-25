@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       get "pings", to: "pings#index" # api/v1/pings
       resources :products, only: [:index, :show, :create, :update, :destroy]
       resources :brands, only: [:index, :show, :create, :update, :destroy]
+      resources :categiries, only: [:index, :update, :create, :destroy]
+      resources :product_specifications, only: [:create, :update, :destroy]
     end
   end
 end
