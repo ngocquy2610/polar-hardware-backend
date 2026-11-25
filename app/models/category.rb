@@ -22,7 +22,7 @@ class Category < ApplicationRecord
     candidate_slug = base_slug
     count = 1
 
-    while Category.where.not(id: id).exist?(slug: candidate_slug)
+    while Category.where.not(id: id).exists?(slug: candidate_slug)
       # where not id: id to remove current product out of checking
       candidate_slug = "#{base_slug}-#{count}"
       count += 1

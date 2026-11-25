@@ -15,13 +15,15 @@ class Brand < ApplicationRecord
   private
 
   def generate_slug
-    return if name.blank? || slug.present?
+    return if slug.present? || name.blank?
 
-    base_slug = name.parameterizes if slug.blank? && name.present?
+    base_slug = name.parameterize if slug.blank? && name.present?
+    # parameterize to nomalize string "Polar Keyboard" to "polar-keyboard"
     candidate_slug = base_slug
     count = 1
 
-    while Brand.where.not(id: id).exist?(slug: candidate_slug)
+    while Brand.where.not(id: id).exists?(slug: candidate_slug)
+      # where not id: id to remove current product out of checking
       candidate_slug = "#{base_slug}-#{count}"
       count += 1
     end

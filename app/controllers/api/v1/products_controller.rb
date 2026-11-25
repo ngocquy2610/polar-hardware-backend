@@ -9,7 +9,7 @@ module Api
       def index
         authorize Product
 
-        products = paginate(policy_scope(Product).includes(:brand, :category, :product_specification))
+        products = paginate(policy_scope(Product).includes(:brand, :category, :product_specifications))
         brands = policy_scope(Brand)
         categories = policy_scope(Category)
         render json: {
@@ -80,8 +80,8 @@ module Api
       private
 
       def set_product
-        @product = policy_scope(Product).find_by(id: params[:id]).includes(:brand, :category, :product_specification) ||
-                   policy_scope(Product).find_by(slug: params[:id]).includes(:brand, :category, :product_specification)
+        @product = policy_scope(Product).includes(:brand, :category, :product_specifications).find_by(id: params[:id]) ||
+                   policy_scope(Product).includes(:brand, :category, :product_specifications).find_by(slug: params[:id])
         if @product.nil?
           render json: {
             error: "Product not found"
